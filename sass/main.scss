@@ -1,0 +1,202 @@
+@use "variables" as vars;
+
+@import "reset";
+
+body {
+  background-color: vars.$body-bg;
+
+  font-family: 'Lato', sans-serif;
+}
+
+.main {
+  margin: 100px auto;
+  padding: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+
+  width: 100%;
+
+  background-color: vars.$main-bg;
+
+  min-width: vars.$board-side * 1.5;
+  max-width: vars.$board-side * 2;
+}
+
+.title {
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  margin-bottom: 50px;
+}
+
+.board {
+  position: relative;
+  margin: auto;
+
+  width: vars.$board-side;
+  height: vars.$board-side;
+
+
+  .cell {
+    position: absolute;
+    width: vars.$cell-side;
+    height: vars.$cell-side;
+
+    background: vars.$cell-background;
+    color: #fff;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
+    border: vars.$cell-border;
+    border-radius: 10px;
+
+    @for $i from 0 to 3 {
+      @for $j from 0 to 3 {
+        &[data-x="#{$i}"][data-y="#{$j}"] {
+          left: $i * vars.$cell-side + ($i * 2 + 1) * vars.$cell-margin;
+          top: $j * vars.$cell-side + ($j * 2 + 1) * vars.$cell-margin;
+        }
+      }
+    }
+
+    &.filled {
+      cursor: default;
+    }
+    &.empty {
+      cursor: pointer;
+
+      &:hover {
+        border: vars.$cell-border-hover;
+        transition: 200ms;
+      }
+    }
+
+    &.x::after, &.o::after {
+      display: inline;
+
+      line-height: 100%;
+      font-size: 100px;
+      font-weight: 400;
+
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.x::after {
+      content: "X";
+    }
+    &.o::after {
+      content: "O";
+    }
+  }
+
+}
+
+.turn p{
+  width: max-content;
+  margin: 20px auto;
+
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.log-wrapper {
+  width: vars.$board-side;
+  margin: 50px auto;
+  padding: 30px;
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+  position: relative;
+
+  h3 {
+    width: max-content;
+
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.3);
+
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0);
+
+    background-color: inherit;
+  }
+
+  .log {
+    width: 100%;
+    max-height: 100px;
+    overflow: scroll;
+
+    font-size: 0.9rem;
+    font-weight: 100;
+    color: rgba(0, 0, 0, 0.6);
+
+    &, li {
+      list-style-type: '- ';
+    }
+  }
+}
+
+.popup {
+  z-index: 10;
+  display: none;
+
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  &-box {
+    width: vars.$popup-box-width;
+    height: vars.$popup-box-height;
+    background-color: #ddd;
+
+    border-radius: 4px;
+
+    position: absolute;
+    left: 50%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+  }
+
+  &-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    transform: translate(50%, -50%);
+
+    padding: 0 3px;
+
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 20%;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid rgba(255, 0, 0, 1);
+      transition: 100ms;
+    }
+
+  }
+
+  &-message {
+    width: max-content;
+
+    padding: 20px;
+    text-align: justify;
+    font-size: 3rem;
+    font-weight: 100;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    p {
+      width: fit-content;
+    }
+  }
+}

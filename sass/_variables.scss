@@ -1,0 +1,16 @@
+$cell-side: 100px !default;
+$cell-border-weight: 1px !default;
+$cell-border-color: rgba(255, 255, 255, 0.2) !default;
+$cell-border-color-hover: rgba(255, 255, 255, 0.8) !default;
+$cell-border: $cell-border-weight solid $cell-border-color;
+$cell-border-hover: 2 * $cell-border-weight solid $cell-border-color-hover;
+$cell-margin: $cell-border-weight + 2px;
+$cell-background: rgba(0, 0, 0, 0.8);
+
+$board-side: $cell-side * 3 + $cell-margin * 6;
+
+$main-bg: rgba(0, 0, 0, 0.1);
+$body-bg: rgba(0, 0, 0, 0.1);
+
+$popup-box-width: 400px;
+$popup-box-height: 200px;
